@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atm.mapper.StockMapper" >
+  <resultMap id="BaseResultMap" type="com.atm.pojo.Stock" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="s_code" property="sCode" jdbcType="VARCHAR" />
+    <result column="s_price" property="sPrice" jdbcType="REAL" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_company" property="sCompany" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    s_id, s_code, s_price, s_name, s_company
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atm.pojo.StockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atm.pojo.StockExample" >
+    delete from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atm.pojo.Stock" >
+    insert into stock (s_id, s_code, s_price, 
+      s_name, s_company)
+    values (#{sId,jdbcType=INTEGER}, #{sCode,jdbcType=VARCHAR}, #{sPrice,jdbcType=REAL}, 
+      #{sName,jdbcType=VARCHAR}, #{sCompany,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atm.pojo.Stock" >
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sCode != null" >
+        s_code,
+      </if>
+      <if test="sPrice != null" >
+        s_price,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="sCompany != null" >
+        s_company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sCode != null" >
+        #{sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        #{sPrice,jdbcType=REAL},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCompany != null" >
+        #{sCompany,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atm.pojo.StockExample" resultType="java.lang.Integer" >
+    select count(*) from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock
+    <set >
+      <if test="record.sId != null" >
+        s_id = #{record.sId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sCode != null" >
+        s_code = #{record.sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sPrice != null" >
+        s_price = #{record.sPrice,jdbcType=REAL},
+      </if>
+      <if test="record.sName != null" >
+        s_name = #{record.sName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sCompany != null" >
+        s_company = #{record.sCompany,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock
+    set s_id = #{record.sId,jdbcType=INTEGER},
+      s_code = #{record.sCode,jdbcType=VARCHAR},
+      s_price = #{record.sPrice,jdbcType=REAL},
+      s_name = #{record.sName,jdbcType=VARCHAR},
+      s_company = #{record.sCompany,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atm.pojo.Stock" >
+    update stock
+    <set >
+      <if test="sCode != null" >
+        s_code = #{sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        s_price = #{sPrice,jdbcType=REAL},
+      </if>
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCompany != null" >
+        s_company = #{sCompany,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atm.pojo.Stock" >
+    update stock
+    set s_code = #{sCode,jdbcType=VARCHAR},
+      s_price = #{sPrice,jdbcType=REAL},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_company = #{sCompany,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

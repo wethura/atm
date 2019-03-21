@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atm.mapper.WelfareMapper" >
+  <resultMap id="BaseResultMap" type="com.atm.pojo.Welfare" >
+    <id column="w_id" property="wId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="w_date" property="wDate" jdbcType="TIMESTAMP" />
+    <result column="w_money" property="wMoney" jdbcType="REAL" />
+    <result column="w_name" property="wName" jdbcType="VARCHAR" />
+    <result column="w_card" property="wCard" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    w_id, u_id, w_date, w_money, w_name, w_card
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atm.pojo.WelfareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from welfare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from welfare
+    where w_id = #{wId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from welfare
+    where w_id = #{wId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atm.pojo.WelfareExample" >
+    delete from welfare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atm.pojo.Welfare" >
+    insert into welfare (w_id, u_id, w_date, 
+      w_money, w_name, w_card)
+    values (#{wId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{wDate,jdbcType=TIMESTAMP}, 
+      #{wMoney,jdbcType=REAL}, #{wName,jdbcType=VARCHAR}, #{wCard,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atm.pojo.Welfare" >
+    insert into welfare
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wId != null" >
+        w_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="wDate != null" >
+        w_date,
+      </if>
+      <if test="wMoney != null" >
+        w_money,
+      </if>
+      <if test="wName != null" >
+        w_name,
+      </if>
+      <if test="wCard != null" >
+        w_card,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wId != null" >
+        #{wId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="wDate != null" >
+        #{wDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wMoney != null" >
+        #{wMoney,jdbcType=REAL},
+      </if>
+      <if test="wName != null" >
+        #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wCard != null" >
+        #{wCard,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atm.pojo.WelfareExample" resultType="java.lang.Integer" >
+    select count(*) from welfare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update welfare
+    <set >
+      <if test="record.wId != null" >
+        w_id = #{record.wId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wDate != null" >
+        w_date = #{record.wDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wMoney != null" >
+        w_money = #{record.wMoney,jdbcType=REAL},
+      </if>
+      <if test="record.wName != null" >
+        w_name = #{record.wName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCard != null" >
+        w_card = #{record.wCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update welfare
+    set w_id = #{record.wId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      w_date = #{record.wDate,jdbcType=TIMESTAMP},
+      w_money = #{record.wMoney,jdbcType=REAL},
+      w_name = #{record.wName,jdbcType=VARCHAR},
+      w_card = #{record.wCard,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atm.pojo.Welfare" >
+    update welfare
+    <set >
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="wDate != null" >
+        w_date = #{wDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wMoney != null" >
+        w_money = #{wMoney,jdbcType=REAL},
+      </if>
+      <if test="wName != null" >
+        w_name = #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wCard != null" >
+        w_card = #{wCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where w_id = #{wId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atm.pojo.Welfare" >
+    update welfare
+    set u_id = #{uId,jdbcType=INTEGER},
+      w_date = #{wDate,jdbcType=TIMESTAMP},
+      w_money = #{wMoney,jdbcType=REAL},
+      w_name = #{wName,jdbcType=VARCHAR},
+      w_card = #{wCard,jdbcType=VARCHAR}
+    where w_id = #{wId,jdbcType=INTEGER}
+  </update>
+</mapper>

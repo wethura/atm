@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atm.mapper.UserMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.atm.pojo.UserMessage" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="m_title" property="mTitle" jdbcType="VARCHAR" />
+    <result column="m_detail" property="mDetail" jdbcType="VARCHAR" />
+    <result column="m_date" property="mDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    m_id, u_id, m_title, m_detail, m_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atm.pojo.UserMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_message
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_message
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atm.pojo.UserMessageExample" >
+    delete from user_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atm.pojo.UserMessage" >
+    insert into user_message (m_id, u_id, m_title, 
+      m_detail, m_date)
+    values (#{mId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{mTitle,jdbcType=VARCHAR}, 
+      #{mDetail,jdbcType=VARCHAR}, #{mDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atm.pojo.UserMessage" >
+    insert into user_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="mTitle != null" >
+        m_title,
+      </if>
+      <if test="mDetail != null" >
+        m_detail,
+      </if>
+      <if test="mDate != null" >
+        m_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="mTitle != null" >
+        #{mTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mDetail != null" >
+        #{mDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="mDate != null" >
+        #{mDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atm.pojo.UserMessageExample" resultType="java.lang.Integer" >
+    select count(*) from user_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_message
+    <set >
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mTitle != null" >
+        m_title = #{record.mTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mDetail != null" >
+        m_detail = #{record.mDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mDate != null" >
+        m_date = #{record.mDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_message
+    set m_id = #{record.mId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      m_title = #{record.mTitle,jdbcType=VARCHAR},
+      m_detail = #{record.mDetail,jdbcType=VARCHAR},
+      m_date = #{record.mDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atm.pojo.UserMessage" >
+    update user_message
+    <set >
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="mTitle != null" >
+        m_title = #{mTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mDetail != null" >
+        m_detail = #{mDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="mDate != null" >
+        m_date = #{mDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atm.pojo.UserMessage" >
+    update user_message
+    set u_id = #{uId,jdbcType=INTEGER},
+      m_title = #{mTitle,jdbcType=VARCHAR},
+      m_detail = #{mDetail,jdbcType=VARCHAR},
+      m_date = #{mDate,jdbcType=TIMESTAMP}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+</mapper>

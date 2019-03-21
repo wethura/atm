@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atm.mapper.PaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.atm.pojo.Payment" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="p_usage" property="pUsage" jdbcType="VARCHAR" />
+    <result column="p_money" property="pMoney" jdbcType="REAL" />
+    <result column="p_date" property="pDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_id, u_id, p_usage, p_money, p_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atm.pojo.PaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from payment
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from payment
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atm.pojo.PaymentExample" >
+    delete from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atm.pojo.Payment" >
+    insert into payment (p_id, u_id, p_usage, 
+      p_money, p_date)
+    values (#{pId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{pUsage,jdbcType=VARCHAR}, 
+      #{pMoney,jdbcType=REAL}, #{pDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atm.pojo.Payment" >
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="pUsage != null" >
+        p_usage,
+      </if>
+      <if test="pMoney != null" >
+        p_money,
+      </if>
+      <if test="pDate != null" >
+        p_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="pUsage != null" >
+        #{pUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="pMoney != null" >
+        #{pMoney,jdbcType=REAL},
+      </if>
+      <if test="pDate != null" >
+        #{pDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atm.pojo.PaymentExample" resultType="java.lang.Integer" >
+    select count(*) from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update payment
+    <set >
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pUsage != null" >
+        p_usage = #{record.pUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pMoney != null" >
+        p_money = #{record.pMoney,jdbcType=REAL},
+      </if>
+      <if test="record.pDate != null" >
+        p_date = #{record.pDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update payment
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      p_usage = #{record.pUsage,jdbcType=VARCHAR},
+      p_money = #{record.pMoney,jdbcType=REAL},
+      p_date = #{record.pDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atm.pojo.Payment" >
+    update payment
+    <set >
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="pUsage != null" >
+        p_usage = #{pUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="pMoney != null" >
+        p_money = #{pMoney,jdbcType=REAL},
+      </if>
+      <if test="pDate != null" >
+        p_date = #{pDate,jdbcType=DATE},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atm.pojo.Payment" >
+    update payment
+    set u_id = #{uId,jdbcType=INTEGER},
+      p_usage = #{pUsage,jdbcType=VARCHAR},
+      p_money = #{pMoney,jdbcType=REAL},
+      p_date = #{pDate,jdbcType=DATE}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>
