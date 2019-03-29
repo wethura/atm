@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Create by Administrator
- *
+ *git push origin branchA:branchB
  * @author sola
  * @date 2019/03/28 4:16
  */
