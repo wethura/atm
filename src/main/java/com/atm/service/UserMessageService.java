@@ -18,5 +18,5 @@ public interface UserMessageService {
 	 * @param id
 	 * @return
 	 */
-	List<UserMessage> queryMessage(Integer id);
+	void queryMessage(Integer id);
 }

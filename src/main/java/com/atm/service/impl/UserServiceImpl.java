@@ -1,5 +1,6 @@
 package com.atm.service.impl;
 
+import com.atm.Runner;
 import com.atm.mapper.UserMapper;
 import com.atm.pojo.User;
 import com.atm.pojo.UserExample;
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
 		System.out.print("请输入存款金额：");
 		Float money;
 		try {
-			money = IO.cin.nextFloat();
+			money = IO.cin.nextFloat() + Runner.user.getuMoney();
 			if(money.toString().equals("Infinity") || money <= 0) {
 				System.out.println("输入错误，存款失败！");
 				return;
