@@ -424,6 +424,66 @@ public class UserMessageExample {
             addCriterion("m_date not between", value1, value2, "mDate");
             return (Criteria) this;
         }
+
+        public Criteria andMReadIsNull() {
+            addCriterion("m_read is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadIsNotNull() {
+            addCriterion("m_read is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadEqualTo(Boolean value) {
+            addCriterion("m_read =", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadNotEqualTo(Boolean value) {
+            addCriterion("m_read <>", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadGreaterThan(Boolean value) {
+            addCriterion("m_read >", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("m_read >=", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadLessThan(Boolean value) {
+            addCriterion("m_read <", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadLessThanOrEqualTo(Boolean value) {
+            addCriterion("m_read <=", value, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadIn(List<Boolean> values) {
+            addCriterion("m_read in", values, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadNotIn(List<Boolean> values) {
+            addCriterion("m_read not in", values, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadBetween(Boolean value1, Boolean value2) {
+            addCriterion("m_read between", value1, value2, "mRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andMReadNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("m_read not between", value1, value2, "mRead");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -7,6 +7,12 @@ public class UserStock {
 
     private Integer usNum;
 
+    public UserStock(Integer sId, Integer uId, Integer usNum) {
+        this.sId = sId;
+        this.uId = uId;
+        this.usNum = usNum;
+    }
+
     @Override
     public String toString() {
         return "UserStock{" +

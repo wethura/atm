@@ -7,6 +7,7 @@
     <result column="m_title" property="mTitle" jdbcType="VARCHAR" />
     <result column="m_detail" property="mDetail" jdbcType="VARCHAR" />
     <result column="m_date" property="mDate" jdbcType="TIMESTAMP" />
+    <result column="m_read" property="mRead" jdbcType="BIT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    m_id, u_id, m_title, m_detail, m_date
+    m_id, u_id, m_title, m_detail, m_date, m_read
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atm.pojo.UserMessageExample" >
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.atm.pojo.UserMessage" >
     insert into user_message (m_id, u_id, m_title, 
-      m_detail, m_date)
+      m_detail, m_date, m_read
+      )
     values (#{mId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{mTitle,jdbcType=VARCHAR}, 
-      #{mDetail,jdbcType=VARCHAR}, #{mDate,jdbcType=TIMESTAMP})
+      #{mDetail,jdbcType=VARCHAR}, #{mDate,jdbcType=TIMESTAMP}, #{mRead,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.atm.pojo.UserMessage" >
     insert into user_message
@@ -123,6 +126,9 @@
       <if test="mDate != null" >
         m_date,
       </if>
+      <if test="mRead != null" >
+        m_read,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="mId != null" >
@@ -139,6 +145,9 @@
       </if>
       <if test="mDate != null" >
         #{mDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mRead != null" >
+        #{mRead,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.mDate != null" >
         m_date = #{record.mDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.mRead != null" >
+        m_read = #{record.mRead,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       u_id = #{record.uId,jdbcType=INTEGER},
       m_title = #{record.mTitle,jdbcType=VARCHAR},
       m_detail = #{record.mDetail,jdbcType=VARCHAR},
-      m_date = #{record.mDate,jdbcType=TIMESTAMP}
+      m_date = #{record.mDate,jdbcType=TIMESTAMP},
+      m_read = #{record.mRead,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="mDate != null" >
         m_date = #{mDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="mRead != null" >
+        m_read = #{mRead,jdbcType=BIT},
+      </if>
     </set>
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set u_id = #{uId,jdbcType=INTEGER},
       m_title = #{mTitle,jdbcType=VARCHAR},
       m_detail = #{mDetail,jdbcType=VARCHAR},
-      m_date = #{mDate,jdbcType=TIMESTAMP}
+      m_date = #{mDate,jdbcType=TIMESTAMP},
+      m_read = #{mRead,jdbcType=BIT}
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
 </mapper>

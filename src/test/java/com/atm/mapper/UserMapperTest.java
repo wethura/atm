@@ -1,5 +1,7 @@
 package com.atm.mapper;
 
+import com.atm.service.PaymentListener;
+import com.atm.service.PaymentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,15 @@ public class UserMapperTest {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	PaymentService paymentService;
+	@Autowired
+	PaymentListener paymentListener;
 
 	@Test
 	public void test(){
 		System.out.println(userMapper.selectByPrimaryKey(1));
+		new PaymentListener().run();
 	}
 
 }

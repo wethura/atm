@@ -1,8 +1,11 @@
 package com.atm.pojo;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class StockExample {
     protected String orderByClause;
 

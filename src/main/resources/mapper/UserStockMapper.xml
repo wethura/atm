@@ -150,4 +150,12 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="selectStocksByUId" resultType="map">
+    select us.us_num, st.s_code, st.s_name, st.s_company, st.s_price, us.s_id
+    from user_stock as us, stock as st
+    where us.u_id=#{uid} and us.s_id=st.s_id
+    <if test="scode != null and scode !=''">
+      and st.s_code=#{scode}
+    </if>
+  </select>
 </mapper>

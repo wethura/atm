@@ -3,6 +3,8 @@ package com.atm.mapper;
 import com.atm.pojo.UserStock;
 import com.atm.pojo.UserStockExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserStockMapper {
@@ -19,4 +21,6 @@ public interface UserStockMapper {
     int updateByExampleSelective(@Param("record") UserStock record, @Param("example") UserStockExample example);
 
     int updateByExample(@Param("record") UserStock record, @Param("example") UserStockExample example);
+
+    List<Map> selectStocksByUId(@Param("uid") int uid, @Param("scode") String scode);
 }

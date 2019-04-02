@@ -56,7 +56,7 @@
     <!--<table tableName="user_stock" domainObjectName="UserStock"></table>-->
     <!--<table tableName="welfare" domainObjectName="Welfare"></table>-->
     <!--<table tableName="payment" domainObjectName="Payment"></table>-->
-    <!--<table tableName="user_message" domainObjectName="UserMessage"></table>-->
+    <table tableName="user_message" domainObjectName="UserMessage"></table>
 
   </context>
 </generatorConfiguration>
