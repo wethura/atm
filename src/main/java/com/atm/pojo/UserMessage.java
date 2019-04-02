@@ -13,16 +13,7 @@ public class UserMessage {
 
     private Date mDate;
 
-    @Override
-    public String toString() {
-        return "UserMessage{" +
-                "mId=" + mId +
-                ", uId=" + uId +
-                ", mTitle='" + mTitle + '\'' +
-                ", mDetail='" + mDetail + '\'' +
-                ", mDate=" + mDate +
-                '}';
-    }
+    private Boolean mRead;
 
     public Integer getmId() {
         return mId;
@@ -62,5 +53,13 @@ public class UserMessage {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
+    }
+
+    public Boolean getmRead() {
+        return mRead;
+    }
+
+    public void setmRead(Boolean mRead) {
+        this.mRead = mRead;
     }
 }

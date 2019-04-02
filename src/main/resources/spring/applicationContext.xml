@@ -3,9 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
   <context:property-placeholder location="classpath:properties/db.properties"/>
 
@@ -34,8 +34,8 @@
 
     <property name="validationQuery" value="SELECT 'x'" />
     <property name="testWhileIdle" value="true" />
-    <property name="testOnBorrow" value="false" />
-    <property name="testOnReturn" value="false" />
+    <property name="testOnBorrow" value="true" />
+    <property name="testOnReturn" value="true" />
 
     <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
     <property name="poolPreparedStatements" value="true" />
@@ -79,5 +79,9 @@
                  pointcut="execution(* com.atm.service.*.*(..))" />
   </aop:config>
 
+  <bean id="runner" class="com.atm.Runner">
+  </bean>
 
+  <task:executor id="executor" pool-size="5"/>
+  <task:annotation-driven executor="executor"/>
 </beans>
